@@ -10,9 +10,14 @@ app.config['SECRET_KEY'] = "TestForFirstTime"
 socketio = SocketIO(app)
 
 #首页
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 def index():
-    return redirect(url_for(chatbox))
+    if request.method == 'POST':
+        choice = request.form["choice"]
+        print(choice)
+        print(request.values)
+        return redirect(choice)
+    return render_template('index.html')
 
 @app.route('/yukibot/')
 def chatbox():

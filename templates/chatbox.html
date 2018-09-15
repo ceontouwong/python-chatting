@@ -1,43 +1,6 @@
 <html>
-<style type="text/css">
-	div
-	{
-		border:3px solid #ddd;
-		border-image: linear-gradient(#000, #ddd) 30 30;
-		border-style: groove;
-		width:687px;
-		height: 592px;
-		padding:10px 10px;
-		resize: both;
-		overflow: scroll;
-
-		text-align: center;
-		position: absolute;
-		left: 50%;
-		top:  50%;
-		transform: translate(-50%, -65%);
-	}
-
-	form
-	{
-		text-align: center;
-		position: absolute;
-		left: 50%;
-		top:  82%;
-		transform: translate(-50%, -50%);
-	}
-
-	#submit
-	{
-		text-align: center;
-		position: absolute;
-		left: 50%;
-		top:  90%;
-		transform: translate(-50%, -50%);
-	}
-
-</style>
 	  <head>
+			<link rel = "stylesheet" href="/static/chatbox_style.css" type="text/css" />
 			{%if name%}
 			<title>{{name}}</title>
 			{%else%}
@@ -51,59 +14,12 @@
 	  </head>
   <body>
   	<div id = "messagebox">
-		  <ul id = "history_message">
-
-		  </ul>
+		  <ul id = "history_message"></ul>
   	</div>
   	<form>
   		在这里输入你要发送的信息(Input Here):<textarea id = "inputbox" style="width: 680px; height: 60px;"></textarea>
 	</form>
 	<button id = "submit">确定</button>
   </body>
-  	<script>
-		$(document).ready(function() {
-			function toUtf8(str) {
-	    var out, i, len, c;
-	    out = "";
-	    len = str.length;
-	    for(i = 0; i < len; i++) {
-	        c = str.charCodeAt(i);
-	        if ((c >= 0x0001) && (c <= 0x007F)) {
-	            out += str.charAt(i);
-	        } else if (c > 0x07FF) {
-	            out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
-	            out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));
-	            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));
-	        } else {
-	            out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));
-	            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));
-	        }
-	    }
-	    return out;
-		}
-			function addLi(msg){
-				$("#history_message").append($("<li></li>").text(msg));
-			}
-			function addLi_user(msg){
-				$("#history_message").append($("<li></li>").text("你说: " + msg));
-			}
-			function addLi_resp(msg){
-				$("#history_message").append($("<li></li>").text(msg));
-			}
-			var socket = io.connect(location.protocol+ '//' + document.domain + ':'+ location.port);
-			socket.on('response', function(res) {
-				addLi("Message From Local Server:" + res);
-			});
-			//$("ul").append("<li>"+ res + "</li>");
-
-			$("#submit").click(function(){
-				addLi_user($("#inputbox").val());
-				socket.emit('send', $("#inputbox").val());
-			})
-			socket.on('resp', function(resp){
-				addLi_resp(resp);
-			})
-		});
-
-	</script>
+  	<script src="/static/bot.js"></script>
 </html>

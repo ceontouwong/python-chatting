@@ -10,7 +10,9 @@ class Yuki:
     def __init__(self):
         self.chatbot.set_trainer(ChatterBotCorpusTrainer)
         #self.chatbot.train("chatterbot.corpus.chinese")
-        self.chatbot.train("chatterbot.corpus.english")
+        self.chatbot.train("chatterbot.corpus.english.conversations",
+                           "chatterbot.corpus.english.greetings"
+        )
 
     def getResponse(self, message=""):
         return str(self.chatbot.get_response(message))

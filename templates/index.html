@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  </head>
+  <body>
+    <form method = "POST">
+      <select id = "select_option" name = "choice"></select>
+      <button type = "submit" id = "submit"></button>
+    </form>
+    <p></p>
+  </body>
+  <script>
+  $(document).ready(function(){
+    $.getJSON("/static/list.json", function(result){
+      $.each(result.value, function(i, field){
+        var option = '<option value=\"' + field.url + '\">' + field.name + '</option>';
+        $("#select_option").append(option);
+      })
+    });
+    /*$("#submit").click(function(){
+      var seleted  = $("#select_option").val();
+      $.post(seleted, function(){
+        $("p").append(selected);
+      })
+    })*/
+  });
+  </script>
+</html>
