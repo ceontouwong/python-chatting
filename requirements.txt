@@ -29,7 +29,7 @@ macaroonbakery==1.1.3
 Mako==1.0.7
 MarkupSafe==1.0
 mathparse==0.1.1
-nltk==3.3
+nltk==3.4.5
 oauth==1.0.1
 oauthlib==2.1.0
 olefile==0.45.1
